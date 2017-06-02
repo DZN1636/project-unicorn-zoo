@@ -6,7 +6,6 @@ import {Unicorn} from '../common/unicorn.model';
   selector: 'unicorn',
   template: `
     <div class="row" style="margin-top: 5px;" >
-      <h1>{{unicorn.name}}</h1>
       <ul class="list-group" >
         <li class="list-group-item" >Color: {{unicorn.color}}</li>
         <li class="list-group-item" >Age: {{unicorn.age}}</li>
