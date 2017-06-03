@@ -18,11 +18,11 @@ export class Unicorn {
   gender: string;
   age: number;
 
-  constructor(name, age) {
+  constructor(name: string, age: number, color?: string) {
     this.name = name || 'unicorn'.concat(' ' + Math.floor(Math.random() * 100));
     this.age = age || Math.round(Math.random() * 100);
     this.gender = randomPick(GENDERS);
-    this.color = generateHexColor();
+    this.color = color || generateHexColor();
   }
 }
 

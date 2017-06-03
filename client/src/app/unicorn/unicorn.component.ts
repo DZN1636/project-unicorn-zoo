@@ -7,9 +7,9 @@ import {Unicorn} from '../common/unicorn.model';
   template: `
     <div class="row" style="margin-top: 5px;" >
       <ul class="list-group" >
-        <li class="list-group-item" >Color: {{unicorn.color}}</li>
-        <li class="list-group-item" >Age: {{unicorn.age}}</li>
-        <li class="list-group-item" >Gender: {{unicorn.gender}}</li>
+        <li class="list-group-item" [style.backgroundColor]="unicorn.color" >Color: {{unicorn.color}}</li>
+        <li class="list-group-item" [style.backgroundColor]="unicorn.color" >Age: {{unicorn.age}}</li>
+        <li class="list-group-item" [style.backgroundColor]="unicorn.color" >Gender: {{unicorn.gender}}</li>
       </ul>
     </div>
   `,
