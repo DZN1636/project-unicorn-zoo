@@ -26,7 +26,6 @@ app.post('/api/unicorns/get', (req, res) => {
         });
       } else {
         const parsed = JSON.parse(data);
-        console.log(parsed);
         res.status(200).json(parsed.unicorns);
       }
     });
@@ -47,7 +46,6 @@ app.post('/api/unicorns/clean', (req, res) => {
         });
       } else {
         const parsed = JSON.parse(data);
-        console.log(parsed);
         const cleanedUnicorns = {unicorns: []};
         fs.writeFile(DB_URL, JSON.stringify(cleanedUnicorns), (err) => {
           if(err) {
@@ -72,12 +70,10 @@ app.post('/api/unicorns/create', (req, res) => {
     !(u.name && u.age && u.color && u.gender) ? res.status(400).json({message: 'user input error'}) : '';
     fs.readFile(DB_URL, 'utf8', (err, data) => {
       if(err) {
-        console.log(err);
         res.status(500).json({message: 'database error'});
       } else {
         const parsed = JSON.parse(data);
         parsed.unicorns.push(u);
-        console.log(parsed);
         fs.writeFile(DB_URL, JSON.stringify(parsed), (err) => {
           if(err) {
             res.status(500).json({message: 'database @ write @ post @ /api/unicorns/create error'});

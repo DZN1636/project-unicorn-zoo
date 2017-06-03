@@ -26,7 +26,6 @@ export class KeeperService {
   }
 
   makeBaby(unicorn1: Unicorn, unicorn2: Unicorn): Observable<Unicorn[]> {
-    console.log(unicorn1, unicorn2);
     const babyUnicornName = unicorn1.name + ' - ' + unicorn2.name;
     // take the first 3 characters from the first unicorn (including the hash), and mix with the 
     // remaining characters from the second unicorn 
