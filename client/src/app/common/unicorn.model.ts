@@ -1,4 +1,4 @@
-const HANDPICKED_SHADES = ['9c', 'bf', 'e6'];
+const HANDPICKED_SHADES = ['9c', 'bf', 'e6', '42', '86', 'f4'];
 const GENDERS = ['M', 'F', 'O'];
 
 const randomPick = (pickSource: Array<string>) => {

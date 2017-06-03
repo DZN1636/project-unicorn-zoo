@@ -27,13 +27,36 @@ import { Unicorn } from "app/common/unicorn.model";
             Create Unicorn
           </button>
           <button
-            class="btn btn-danger"
+            class="btn btn-primary"
             (click)="onMate(unicornOne, unicornTwo)"
           >
             Mate
           </button>
+          <button
+            class="btn btn-danger"
+            (click)="onDelete()"
+          >
+            Sell All Unicorns
+          </button>
+          <div *ngIf="isDeleteMode" style="margin-top: 5px;" >
+            <label>Please count the number of unicorns you are having</label>
+            <input placeholder="Please don't be drunk" #deleteRef >
+            <button
+              class="btn btn-danger btn-xs"
+              (click)="onConfirmDeletion(deleteRef.value)"
+            >
+              Confirm Deletion
+            </button>
+          </div>
         </div>
       </div>
+
+      <hr/>
+
+      <div *ngIf="isZooEmpty()" >
+        <p>The zoo is empty</p>
+      </div>
+      
       <div *ngIf="isShow" >
         <div class="row" 
           *ngFor="let unicorn of unicorns; let i = index"
@@ -57,6 +80,7 @@ export class DashboardComponent implements OnInit {
   unicorns: Unicorn[];
   isShow: boolean = false;
   imgSrc: string = 'https://github.com/images/error/angry_unicorn.png';
+  isDeleteMode: boolean = false;
 
   constructor(private _keeperService: KeeperService) { }
 
@@ -66,7 +90,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  onToggleShowUnicorns() {
+  isZooEmpty(): Boolean {
+    return this.unicorns && this.unicorns.length === 0;
+  }
+
+  onToggleShowUnicorns(): void {
     this.isShow = !this.isShow;
   }
 
@@ -101,6 +129,22 @@ export class DashboardComponent implements OnInit {
       } else {
         alert('You can only mate between a male unicorn and a female one');
       }
+    }
+  }
+
+  onDelete() {
+    this.isDeleteMode = !this.isDeleteMode;
+  }
+
+  onConfirmDeletion(deleteRefValue) {
+    if(Number(deleteRefValue) !== this.unicorns.length) {
+      alert('You are truly drunk');
+    } else {
+      this._keeperService.deleteAllUnicorns().subscribe((data: Unicorn[]) => {
+        this.unicorns = data;
+        console.log(this.unicorns);
+        this.isDeleteMode = !this.isDeleteMode;
+      });
     }
   }
 }

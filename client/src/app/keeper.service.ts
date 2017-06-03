@@ -34,4 +34,11 @@ export class KeeperService {
     const babyUnicorn = new Unicorn(babyUnicornName, 1, babyUnicornColor);
     return this.createUnicorn(babyUnicorn);
   }
+
+  deleteAllUnicorns() {
+    const URL = `${UNICORNS_API}/clean`;
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers });
+    return this._http.post(URL, {}, options).map((response: Response) => response.json());
+  }
 }
