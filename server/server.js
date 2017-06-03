@@ -37,6 +37,34 @@ app.post('/api/unicorns/get', (req, res) => {
   }
 });
 
+app.post('/api/unicorns/clean', (req, res) => {
+  const body = req.body;
+  if(body) {
+    fs.readFile('db.json', 'utf8', (err, data) => {
+      if(err) {
+        res.status(500).json({
+          message: 'database error'
+        });
+      } else {
+        const parsed = JSON.parse(data);
+        console.log(parsed);
+        const cleanedUnicorns = {unicorns: []};
+        fs.writeFile(DB_URL, JSON.stringify(cleanedUnicorns), (err) => {
+          if(err) {
+            res.status(500).json({message: 'database @ write @ post @ /api/unicorns/clean error'});
+          } else {
+            res.status(200).json([]);
+          }
+        });
+      }
+    });
+  } else {
+    res.status(400).json({
+      message: 'error no request body'
+    });
+  }
+});
+
 app.post('/api/unicorns/create', (req, res) => {
   const body = req.body;
   if(body && body.unicorn) {
@@ -52,7 +80,7 @@ app.post('/api/unicorns/create', (req, res) => {
         console.log(parsed);
         fs.writeFile(DB_URL, JSON.stringify(parsed), (err) => {
           if(err) {
-            res.status(500).json({message: 'database @ write error'});
+            res.status(500).json({message: 'database @ write @ post @ /api/unicorns/create error'});
           } else {
             res.status(200).json(parsed.unicorns);
           }
