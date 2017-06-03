@@ -26,12 +26,6 @@ export class Unicorn {
   }
 }
 
-// // test lodash
-// import * as _ from 'lodash';
-// _.map({0: '0', 1: '1'}, (val, key, col) => {
-//   console.log(key);
-// });
-
 // example: granny & child
 // const uni_1 = new Unicorn('first', 70);
 // const uni_2 = new Unicorn('second', 20);

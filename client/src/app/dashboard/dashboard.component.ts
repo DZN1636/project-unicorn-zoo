@@ -114,7 +114,6 @@ export class DashboardComponent implements OnInit {
     const filteredUnicorn2 = _.filter(this.unicorns, (unicornVal, unicornKey) => {
       return unicornKey === Number(key2);
     });
-    console.log(filteredUnicorn1, filteredUnicorn2);
     if(filteredUnicorn1.length < 1 || filteredUnicorn2.length < 1) {
       alert('I think you have entered incorrect index(es)');
     } else {
@@ -142,7 +141,6 @@ export class DashboardComponent implements OnInit {
     } else {
       this._keeperService.deleteAllUnicorns().subscribe((data: Unicorn[]) => {
         this.unicorns = data;
-        console.log(this.unicorns);
         this.isDeleteMode = !this.isDeleteMode;
       });
     }
