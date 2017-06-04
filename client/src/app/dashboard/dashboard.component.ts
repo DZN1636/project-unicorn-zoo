@@ -39,11 +39,9 @@ import { Unicorn } from "app/common/unicorn.model";
             Sell All Unicorns
           </button>
           <div *ngIf="isDeleteMode" style="margin-top: 5px;" >
-            <label>Please count the number of unicorns you are having</label>
-            <input placeholder="Please don't be drunk" #deleteRef >
             <button
               class="btn btn-danger btn-xs"
-              (click)="onConfirmDeletion(deleteRef.value)"
+              (click)="onConfirmDeletion()"
             >
               Confirm Deletion
             </button>
@@ -65,7 +63,7 @@ import { Unicorn } from "app/common/unicorn.model";
             <h2>{{i}}: {{unicorn.name}}</h2>
           </div>
           <div class="col-xs-3" >
-            <img [src]="imgSrc" >
+            <img [src]="imgSrc" width="100%" height="100%" >
           </div>
           <div class="col-xs-6" >
             <unicorn [data]="unicorn" ></unicorn>
@@ -85,9 +83,10 @@ export class DashboardComponent implements OnInit {
   constructor(private _keeperService: KeeperService) { }
 
   ngOnInit() {
-    this._keeperService.getUnicorns().subscribe((data: Unicorn[]) => {
-      this.unicorns = data;
-    });
+    // this._keeperService.getUnicorns().subscribe((data: Unicorn[]) => {
+    //   this.unicorns = data;
+    // });
+    this.unicorns = this._keeperService.getUnicorns();
   }
 
   isZooEmpty(): Boolean {
@@ -100,9 +99,9 @@ export class DashboardComponent implements OnInit {
 
   onCreateUnicorn() {
     const randomUnicorn = new Unicorn(null, Math.round(Math.random() * 100));
-    this._keeperService.createUnicorn(randomUnicorn).subscribe((data: Unicorn[]) => {
-      this.unicorns = data;
-    });
+    this.unicorns = this._keeperService.createUnicorn(randomUnicorn);
+    if(!this.isShow) this.onToggleShowUnicorns();
+    console.log(JSON.parse(localStorage.getItem('unicorns')));
   }
 
   onMate(unicornOne, unicornTwo) {
@@ -122,9 +121,7 @@ export class DashboardComponent implements OnInit {
       if(( unicorn1_gender === 'M' && unicorn2_gender === 'F' ) || 
           ( unicorn1_gender === 'F' && unicorn2_gender === 'M' )) 
       {
-        this._keeperService.makeBaby(filteredUnicorn1[0], filteredUnicorn2[0]).subscribe((data: Unicorn[]) => {
-          this.unicorns = data;
-        });
+        this.unicorns = this._keeperService.makeBaby(filteredUnicorn1[0], filteredUnicorn2[0]);
       } else {
         alert('You can only mate between a male unicorn and a female one');
       }
@@ -135,14 +132,10 @@ export class DashboardComponent implements OnInit {
     this.isDeleteMode = !this.isDeleteMode;
   }
 
-  onConfirmDeletion(deleteRefValue) {
-    if(Number(deleteRefValue) !== this.unicorns.length) {
-      alert('You are truly drunk');
-    } else {
-      this._keeperService.deleteAllUnicorns().subscribe((data: Unicorn[]) => {
-        this.unicorns = data;
-        this.isDeleteMode = !this.isDeleteMode;
-      });
-    }
+  onConfirmDeletion() {
+    // delete
+    this.unicorns = this._keeperService.deleteAllUnicorns();
+    // hide this confirm deletion div
+    this.isDeleteMode = !this.isDeleteMode;
   }
 }

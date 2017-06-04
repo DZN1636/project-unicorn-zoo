@@ -13,11 +13,14 @@ const generateHexColor = () => {
 };
 
 export class Unicorn {
+  id: number;
   name: string;
   color: string;
   gender: string;
   age: number;
 
+  // constructor(id?: number, name: string, age: number, color?: string) {
+  //   this.id = id;
   constructor(name: string, age: number, color?: string) {
     this.name = name || 'unicorn'.concat(' ' + Math.floor(Math.random() * 100));
     this.age = age || Math.round(Math.random() * 100);
