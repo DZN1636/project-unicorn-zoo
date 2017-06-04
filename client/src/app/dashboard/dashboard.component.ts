@@ -83,9 +83,6 @@ export class DashboardComponent implements OnInit {
   constructor(private _keeperService: KeeperService) { }
 
   ngOnInit() {
-    // this._keeperService.getUnicorns().subscribe((data: Unicorn[]) => {
-    //   this.unicorns = data;
-    // });
     this.unicorns = this._keeperService.getUnicorns();
   }
 
@@ -101,7 +98,6 @@ export class DashboardComponent implements OnInit {
     const randomUnicorn = new Unicorn(null, Math.round(Math.random() * 100));
     this.unicorns = this._keeperService.createUnicorn(randomUnicorn);
     if(!this.isShow) this.onToggleShowUnicorns();
-    console.log(JSON.parse(localStorage.getItem('unicorns')));
   }
 
   onMate(unicornOne, unicornTwo) {
