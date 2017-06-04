@@ -60,7 +60,8 @@ import { Unicorn } from "app/common/unicorn.model";
           *ngFor="let unicorn of unicorns; let i = index"
         >
           <div class="col-xs-3" >
-            <h2>{{i}}: {{unicorn.name}}</h2>
+            <h1>{{i}}</h1>
+            <h3>{{unicorn.name}}</h3>
           </div>
           <div class="col-xs-3" >
             <img [src]="imgSrc" width="100%" height="100%" >
