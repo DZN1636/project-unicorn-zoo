@@ -2,10 +2,12 @@
 If you love pony foos, you may like this.
 
 ## Architecture
-### Server
+### Server (discarded)
 Basic server NodeJS expressJS that acts as API gateway. Use a local json file to act as database.
 ### Client
 Goodies Angular 2 & Twitter Bootstrap 3. A dashboard that helps the zoo director to monitor his unicorns. 
+
+The data persistence is now done with browser's localStorage, instead of relying on a NodeJS server.
 
 ## Running
 ```
